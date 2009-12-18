@@ -1,0 +1,70 @@
+body
+{
+	margin : auto;	
+	background-image : url("image/stripe.png");
+}
+
+table
+{
+	margin-left : 250px;
+	border-collapse: collapse;
+	background : white;
+}
+table td
+{
+	border : 1px solid black;
+	width : 120px;
+}	
+
+table td:hover
+{
+	background-color: #FFCCCC;
+}
+ul
+{
+	padding: 0px;
+	margin: 0px;
+}
+ul li
+{
+	display: table-cell;
+	width: 100px;
+
+}
+#rdv1
+{
+	background-color : blue;
+	position: absolute;
+	bottom: 50px;
+	width: 120px;
+}
+
+#rdv2
+{
+	background-color : green;
+	position: absolute;
+	bottom: 50px;
+	width: 120px;
+	left: 60px;
+}
+
+#cadreconnexion
+{
+	position : absolute;
+	width : 200px;
+	padding : 5px;
+	border : 2px solid black;
+	background : white;
+}
+
+#presentationagenda
+{
+	position : absolute;
+	/*width : 700px;*/
+	/*height:500px;*/
+	left : 250px;
+	
+	padding : 5px;
+	border : 2px solid black;
+	background : white;
+}
