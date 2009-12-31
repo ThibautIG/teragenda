@@ -1,7 +1,7 @@
 body
 {
 	margin : auto;	
-	background-image : url("image/stripe.png");
+	background-image : url("./image/stripe.png");
 }
 
 table
@@ -20,17 +20,35 @@ table td:hover
 {
 	background-color: #FFCCCC;
 }
+
 ul
 {
-	padding: 0px;
-	margin: 0px;
+        padding: 0px;
+        margin: 0px;
 }
 ul li
 {
-	display: table-cell;
-	width: 100px;
+        display: table-cell;
+        width: 100px;
 
 }
+
+
+#banniere 
+{
+	width : 600px;
+	height: 200px;
+	margin:auto;
+	margin-top:5px;
+	margin-bottom:20px;
+}
+
+			#banniere img
+			{
+				border-style:none;
+			}
+
+
 #rdv1
 {
 	background-color : blue;
@@ -48,6 +66,17 @@ ul li
 	left: 60px;
 }
 
+#barreup
+{
+	background-color : white;
+	margin : auto;
+	width : 100%;
+	margin-left : 250px;
+	border : 2px solid black;
+	border-bottom : none;
+	margin-bottom : 10px;
+}
+
 #cadreconnexion
 {
 	position : absolute;
@@ -60,11 +89,22 @@ ul li
 #presentationagenda
 {
 	position : absolute;
-	/*width : 700px;*/
-	/*height:500px;*/
+	min-height:500px;
+	min-width :700px;
 	left : 250px;
 	
-	padding : 5px;
+	padding : 10px;
 	border : 2px solid black;
 	background : white;
+}
+
+#footer
+{
+	position : absolute;
+    top:1000px;
+    width:700px;
+    left : 250px;
+    margin-top:20px;
+    border:2px solid black;
+    background:white;
 }

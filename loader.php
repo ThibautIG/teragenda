@@ -6,12 +6,12 @@ if (isset($_POST['deco']))
 	session_destroy();
 	session_start();
 }
-$sql = mysql_connect("10.10.1.12","bergere","votre_passwd");
-mysql_select_db("bergere",$sql);
+$sql = mysql_connect("localhost","root","");
+mysql_select_db("agenda",$sql);
 
 if (isset($_POST["pseudo"]))
 {
-	$pseudo = mysql_real_escape_string($_POST["pseudo"]);
+	$pseudo = mysql_real_escape_string(htmlspecialchars($_POST["pseudo"]));
 	$pass = md5("teragenda".$_POST["pass"]);
 	$q = mysql_query("SELECT * FROM comptes WHERE pseudo = '".$pseudo."' AND mdp = '".$pass."'");
 	if (mysql_num_rows($q) == 1)
@@ -33,36 +33,45 @@ if (isset($_POST["pseudo"]))
 
    <body>
      <div id="banniere">
-		<a href="index.php" title="Lien vers la page principale"><img src="" alt="En tete Header" /></a>
+		<a href="index.php" title="Lien vers la page principale"><img src="./image/header.png" alt="En tete Header" /></a>
+     </div>
+     
+     <div id="barreup">
+     <ul>
+     <li><a href="./index.php" title="Lien vers la page d'accueil">Accueil</a></li>
+     <li><a href="./ajoutrdv.php" title="Ajout RDV">Ajout RDV</a></li>
+     </ul>
      </div>
 	 
 	 <div id="cadreconnexion">
 	 <form method="post" action="">
 	 <?php
-	 if ($_SESSION["ses_connecte"] == true)
-	 {
-	 ?>
+if ($_SESSION["ses_connecte"] == true)
+{
+	?>
 	 	 <p> Pseudonyme : <?php echo $_SESSION["ses_pseudo"]; ?> <br />
 		 <input type="hidden" name="deco" value="1" />
 	 <input type="submit" value="Se deconnecter" /></p>
 	 <?php
-	 }
-	 else
-	 {
-	 ?>
+}
+else
+{
+	?>
 	 <p> Pseudonyme : <input type="text" name="pseudo" /> <br />
 	 Mot de passe : <input type="password" name="pass" /> <br />
-	 <input type="submit" value="Se connecter" /></p>
+	 <input type="submit" value="Se connecter" /><br />
+	 <a href="./register.php" title="Enregistrement">S'enregistrer</a>
+	 </p>
 	 <?php
-	 }
-	 ?>
+}
+?>
 	 </form>
 	 </div>
 	 
 	 <div id="presentationagenda">
 	<?php
-		include("contenu/".$page.".php");
-	?>
+include("contenu/".$page.".php");
+?>
 	</div>
 	
 
