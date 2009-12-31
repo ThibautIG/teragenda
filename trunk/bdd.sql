@@ -1,23 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 3.2.0.1
--- http://www.phpmyadmin.net
---
--- Serveur: localhost
--- Généré le : Ven 18 Décembre 2009 à 18:12
--- Version du serveur: 5.1.36
--- Version de PHP: 5.3.0
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
---
--- Base de données: `clients`
---
 
--- --------------------------------------------------------
-
---
--- Structure de la table `clients`
---
 
 CREATE TABLE IF NOT EXISTS `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -39,9 +22,6 @@ CREATE TABLE IF NOT EXISTS `clients` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=10 ;
 
---
--- Contenu de la table `clients`
---
 
 INSERT INTO `clients` (`id`, `societe`, `nom`, `datefin`, `prix`, `mensualite`, `abo1`, `abo2`, `reconduction`, `traite`, `facture`, `siteweb`, `adresse`, `telephone`, `commentaire`, `utilisateur`) VALUES
 (1, 'auieF', '', '2011-11-30', 0, 0, 0, 0, 'Parc', 'Non', 'z', '', '', '', '', 'brice'),
@@ -52,11 +32,7 @@ INSERT INTO `clients` (`id`, `societe`, `nom`, `datefin`, `prix`, `mensualite`, 
 (8, 'test01', 'brice', '2009-12-22', 0, 160, 1500, 150, 'Reco', 'Non', 'z', 'www.test-powa-de-la-mort.com', '50, rue du du power', '0493987587', 'aller les bleus', 'brice'),
 (9, 'en place', 'mr higgins', '2012-11-30', 0, 0, 1500, 150, 'Parc', 'Oui', 'Non', '', '', '', 'R.A.S', 'tarek');
 
--- --------------------------------------------------------
 
---
--- Structure de la table `comptes`
---
 
 CREATE TABLE IF NOT EXISTS `comptes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -66,9 +42,6 @@ CREATE TABLE IF NOT EXISTS `comptes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Contenu de la table `comptes`
---
 
 INSERT INTO `comptes` (`id`, `pseudo`, `mdp`, `mail`) VALUES
 (1, 'nypias', 'a4eec81680b12e38ccb4ebad62efd052', ''),
@@ -76,29 +49,12 @@ INSERT INTO `comptes` (`id`, `pseudo`, `mdp`, `mail`) VALUES
 (3, 'Mir', 'e469a85c29593c9d8c92923713d6b268', 'laine@machine.mir'),
 (4, 'Nypias', 'e513d1ba87c45ae7829e58783bc6f5b6', 'nypipas@gmail.com');
 
--- --------------------------------------------------------
-
---
--- Structure de la table `fichiers`
---
-
 CREATE TABLE IF NOT EXISTS `fichiers` (
   `id` int(11) NOT NULL,
   `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
   `description` varchar(250) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `fichiers`
---
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `projets`
---
 
 CREATE TABLE IF NOT EXISTS `projets` (
   `id` int(11) NOT NULL,
@@ -108,16 +64,7 @@ CREATE TABLE IF NOT EXISTS `projets` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `projets`
---
 
-
--- --------------------------------------------------------
-
---
--- Structure de la table `rdv`
---
 
 CREATE TABLE IF NOT EXISTS `rdv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -127,8 +74,3 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   `commentaire` varchar(200) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `rdv`
---
-
