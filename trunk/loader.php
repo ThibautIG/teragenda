@@ -37,10 +37,10 @@ if (isset($_POST["pseudo"]))
      </div>
      
      <div id="barreup">
-     <ul>
-     <li><a href="./index.php" title="Lien vers la page d'accueil">Accueil</a></li>
-     <li><a href="./ajoutrdv.php" title="Ajout RDV">Ajout RDV</a></li>
-     </ul>
+     	<ul>
+     		<li><a href="./index.php" title="Lien vers la page d'accueil">Accueil</a></li>
+     		<li><a href="./ajoutrdv.php" title="Ajout RDV">Ajout RDV</a></li>
+    	 </ul>
      </div>
 	 
 	 <div id="cadreconnexion">
