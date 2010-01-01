@@ -1,7 +1,7 @@
 body
 {
 	margin : auto;	
-	background-image : url("./image/stripe.png");
+	background-color : #EFEFDF;
 }
 
 table
@@ -31,6 +31,11 @@ ul li
         display: table-cell;
         width: 100px;
 
+}
+
+h1
+{
+	color:#62625C;
 }
 
 
@@ -68,34 +73,35 @@ ul li
 
 #barreup
 {
-	background-color : white;
-	margin : auto;
-	width : 100%;
-	margin-left : 250px;
-	border : 2px solid black;
+	min-width : 600px;
+	background-color : #FDFDF7;
+	left : 250px;
+	right : 250px;
+	border:1px #DEDECF solid;
 	border-bottom : none;
 	margin-bottom : 10px;
 }
 
 #cadreconnexion
 {
+	background-color : #FDFDF7;
 	position : absolute;
 	width : 200px;
 	padding : 5px;
-	border : 2px solid black;
-	background : white;
+	margin-left:20px;
+	border:1px #DEDECF solid;
 }
 
 #presentationagenda
 {
 	position : absolute;
 	min-height:500px;
-	min-width :700px;
-	left : 250px;
-	
+	min-width :600px;
+	left : 275px;
+	right : 250px;
 	padding : 10px;
-	border : 2px solid black;
-	background : white;
+	border:1px #DEDECF solid;
+	background-color : #FDFDF7;
 }
 
 #footer
@@ -103,8 +109,8 @@ ul li
 	position : absolute;
     top:1000px;
     width:700px;
-    left : 250px;
+    left : 275px;
     margin-top:20px;
-    border:2px solid black;
-    background:white;
+    border:1px #DEDECF solid;
+    background-color : #FDFDF7;
 }

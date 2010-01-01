@@ -17,8 +17,8 @@ else
 		$ok = mysql_query("INSERT INTO rdv(date,heure,duree,commentaire) VALUES('".$date."','".$heure."','".$duree."','".$commentaire."')",$sql);
 	}
 ?>
-<h1>Rendez-vous : </h1>
-Ajouter RDV :
+<h1>Ajouter un rendez-vous </h1>
+
 <form method="post" action="">
 	<table>
 		<tr><td><label>Date</label></td><td><input type="text" id="date" name="date" /></td></tr>
