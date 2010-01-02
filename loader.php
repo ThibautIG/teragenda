@@ -78,7 +78,7 @@ else
 	 	<div id="gestion_projets">
 		 <form method="post" action="">
 	 	<h4>Gestion des projets :</h4>
-	 	<ul>
+	 	<ol>
 	 	<?php
 	 		$id = $_SESSION["ses_id"];
 	 		$r = mysql_query("SELECT * FROM participer, projets WHERE id=id_projets AND id_comptes=$id");
@@ -89,6 +89,7 @@ else
 	 			<?php
 	 		}
 	 	?>
+	 	</ol>
 	 	<br /><a href="./creationprojet.php" title="Creation Projet">Nouveau projet</a>
 	 	</form>
 	 	</div>
