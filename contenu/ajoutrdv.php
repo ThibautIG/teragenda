@@ -9,6 +9,8 @@ else
 {
 	if (isset($_POST["date"]))
 	{
+		
+		
 		$date = mysql_real_escape_string($_POST["date"]);
 		$heuredeb = mysql_real_escape_string($_POST["heuredeb"]);
 		$heurefin = mysql_real_escape_string($_POST["heurefin"]);
@@ -39,7 +41,9 @@ $jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"
 <?php
 for ($i = 0; $i < 7; $i++)
 {
-?><li><?php echo $jours[(date("N")-1+$i)%7]; ?></li><?php
+?><li><?php 
+date_default_timezone_set('Europe/Paris');
+echo $jours[(date("N")-1+$i)%7]; ?></li><?php
 }
 ?>
 </ul>
