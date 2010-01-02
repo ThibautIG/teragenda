@@ -3,20 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- GÃ©nÃ©rÃ© le : Sam 02 Janvier 2010 Ã  14:23
--- Version du serveur: 5.1.37
+-- Généré le : Sam 02 Janvier 2010 à 17:21
+-- Version du serveur: 5.1.36
 -- Version de PHP: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de donnÃ©es: `agenda`
+-- Base de données: `agenda`
 --
 
 -- --------------------------------------------------------
@@ -51,11 +45,11 @@ INSERT INTO `comptes` (`id`, `pseudo`, `mdp`, `mail`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `est_admin` (
-  `id_admin_comptes` int(11) NOT NULL,
-  `id_admin_projet` int(11) NOT NULL,
-  KEY `id_admin_comptes` (`id_admin_comptes`),
-  KEY `id_admin_projet` (`id_admin_projet`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_comptes` int(11) NOT NULL,
+  `id_projets` int(11) NOT NULL,
+  PRIMARY KEY (`id_comptes`,`id_projets`),
+  KEY `id_projets` (`id_projets`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `est_admin`
@@ -70,9 +64,15 @@ CREATE TABLE IF NOT EXISTS `est_admin` (
 
 CREATE TABLE IF NOT EXISTS `fichiers` (
   `id` int(11) NOT NULL,
+  `id_comptes_envoyer` int(11) NOT NULL,
+  `id_projets_comprend` int(11) NOT NULL,
+  `id_rdv_contenir` int(11) NOT NULL,
   `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
   `description` varchar(250) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_rdv_contenir` (`id_rdv_contenir`),
+  KEY `id_compte_envoyer` (`id_comptes_envoyer`),
+  KEY `id_projet_comprend` (`id_projets_comprend`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -89,13 +89,9 @@ CREATE TABLE IF NOT EXISTS `fichiers` (
 CREATE TABLE IF NOT EXISTS `participer` (
   `id_comptes` int(11) NOT NULL,
   `id_projets` int(11) NOT NULL,
-  PRIMARY KEY (`id_projets`),
-  KEY `id_comptes` (`id_comptes`,`id_projets`),
-  KEY `id_projets` (`id_projets`),
-  KEY `id_comptes_2` (`id_comptes`),
-  KEY `id_projets_2` (`id_projets`),
-  KEY `id_projets_3` (`id_projets`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_comptes`,`id_projets`),
+  KEY `id_projets` (`id_projets`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `participer`
@@ -131,20 +127,20 @@ CREATE TABLE IF NOT EXISTS `projets` (
 CREATE TABLE IF NOT EXISTS `rdv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_compte_a_cree` int(11) NOT NULL,
+  `id_projet_posseder` int(11) NOT NULL,
   `date` date NOT NULL,
   `heure` time NOT NULL,
   `duree` int(10) NOT NULL,
   `commentaire` varchar(200) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_compte_a_cree` (`id_compte_a_cree`)
+  KEY `id_compte_a_cree` (`id_compte_a_cree`),
+  KEY `id_projet_posseder` (`id_projet_posseder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `rdv`
 --
 
-INSERT INTO `rdv` (`id`, `id_compte_a_cree`, `date`, `heure`, `duree`, `commentaire`) VALUES
-(1, 0, '0000-00-00', '00:18:48', 2, 'Bonjour');
 
 -- --------------------------------------------------------
 
@@ -153,9 +149,11 @@ INSERT INTO `rdv` (`id`, `id_compte_a_cree`, `date`, `heure`, `duree`, `commenta
 --
 
 CREATE TABLE IF NOT EXISTS `valider` (
-  `id_valider_comptes` int(11) NOT NULL,
-  `id_valider_rdv` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id_comptes` int(11) NOT NULL,
+  `id_rdv` int(11) NOT NULL,
+  PRIMARY KEY (`id_comptes`,`id_rdv`),
+  KEY `id_rdv` (`id_rdv`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `valider`
@@ -163,21 +161,23 @@ CREATE TABLE IF NOT EXISTS `valider` (
 
 
 --
--- Contraintes pour les tables exportÃ©es
+-- Contraintes pour les tables exportées
 --
 
 --
 -- Contraintes pour la table `est_admin`
 --
 ALTER TABLE `est_admin`
-  ADD CONSTRAINT `est_admin_ibfk_2` FOREIGN KEY (`id_admin_projet`) REFERENCES `projets` (`id`),
-  ADD CONSTRAINT `est_admin_ibfk_1` FOREIGN KEY (`id_admin_comptes`) REFERENCES `comptes` (`id`);
+  ADD CONSTRAINT `est_admin_ibfk_1` FOREIGN KEY (`id_comptes`) REFERENCES `comptes` (`id`),
+  ADD CONSTRAINT `est_admin_ibfk_2` FOREIGN KEY (`id_projets`) REFERENCES `projets` (`id`);
 
 --
 -- Contraintes pour la table `fichiers`
 --
 ALTER TABLE `fichiers`
-  ADD CONSTRAINT `fichiers_ibfk_1` FOREIGN KEY (`id`) REFERENCES `comptes` (`id`);
+  ADD CONSTRAINT `fichiers_ibfk_4` FOREIGN KEY (`id_projets_comprend`) REFERENCES `projets` (`id`),
+  ADD CONSTRAINT `fichiers_ibfk_2` FOREIGN KEY (`id_rdv_contenir`) REFERENCES `rdv` (`id`),
+  ADD CONSTRAINT `fichiers_ibfk_3` FOREIGN KEY (`id_comptes_envoyer`) REFERENCES `comptes` (`id`);
 
 --
 -- Contraintes pour la table `participer`
@@ -191,3 +191,17 @@ ALTER TABLE `participer`
 --
 ALTER TABLE `projets`
   ADD CONSTRAINT `projets_ibfk_1` FOREIGN KEY (`id`) REFERENCES `comptes` (`id`);
+
+--
+-- Contraintes pour la table `rdv`
+--
+ALTER TABLE `rdv`
+  ADD CONSTRAINT `rdv_ibfk_2` FOREIGN KEY (`id_projet_posseder`) REFERENCES `projets` (`id`),
+  ADD CONSTRAINT `rdv_ibfk_1` FOREIGN KEY (`id_compte_a_cree`) REFERENCES `comptes` (`id`);
+
+--
+-- Contraintes pour la table `valider`
+--
+ALTER TABLE `valider`
+  ADD CONSTRAINT `valider_ibfk_2` FOREIGN KEY (`id_rdv`) REFERENCES `rdv` (`id`),
+  ADD CONSTRAINT `valider_ibfk_1` FOREIGN KEY (`id_comptes`) REFERENCES `comptes` (`id`);
