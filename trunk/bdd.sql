@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 02 Janvier 2010 à 14:02
+-- Généré le : Sam 02 Janvier 2010 à 14:23
 -- Version du serveur: 5.1.37
 -- Version de PHP: 5.3.0
 
@@ -43,6 +43,24 @@ INSERT INTO `comptes` (`id`, `pseudo`, `mdp`, `mail`) VALUES
 (3, 'Mir', 'e469a85c29593c9d8c92923713d6b268', 'laine@machine.mir'),
 (4, 'Nypias', 'e513d1ba87c45ae7829e58783bc6f5b6', 'nypipas@gmail.com'),
 (5, 'Nopnop', 'e513d1ba87c45ae7829e58783bc6f5b6', 'machin@machin.fr');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `est_admin`
+--
+
+CREATE TABLE IF NOT EXISTS `est_admin` (
+  `id_admin_comptes` int(11) NOT NULL,
+  `id_admin_projet` int(11) NOT NULL,
+  KEY `id_admin_comptes` (`id_admin_comptes`),
+  KEY `id_admin_projet` (`id_admin_projet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `est_admin`
+--
+
 
 -- --------------------------------------------------------
 
@@ -95,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `projets` (
   `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
   `date` date NOT NULL,
   `description` text CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -111,28 +130,48 @@ CREATE TABLE IF NOT EXISTS `projets` (
 
 CREATE TABLE IF NOT EXISTS `rdv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_compte_a_cree` int(11) NOT NULL,
   `date` date NOT NULL,
   `heure` time NOT NULL,
   `duree` int(10) NOT NULL,
   `commentaire` varchar(200) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_compte_a_cree` (`id_compte_a_cree`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `rdv`
 --
 
-INSERT INTO `rdv` (`id`, `date`, `heure`, `duree`, `commentaire`) VALUES
-(1, '0000-00-00', '00:18:48', 2, 'Bonjour'),
-(2, '0000-00-00', '00:18:48', 2, 'Bonjour'),
-(3, '0000-00-00', '00:18:48', 2, 'Bonjour'),
-(4, '0000-00-00', '00:18:48', 2, 'Bonjour'),
-(5, '0000-00-00', '00:18:48', 2, 'Bonjour'),
-(6, '0000-00-00', '00:18:48', 2, 'Bonjour');
+INSERT INTO `rdv` (`id`, `id_compte_a_cree`, `date`, `heure`, `duree`, `commentaire`) VALUES
+(1, 0, '0000-00-00', '00:18:48', 2, 'Bonjour');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `valider`
+--
+
+CREATE TABLE IF NOT EXISTS `valider` (
+  `id_valider_comptes` int(11) NOT NULL,
+  `id_valider_rdv` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `valider`
+--
+
 
 --
 -- Contraintes pour les tables exportées
 --
+
+--
+-- Contraintes pour la table `est_admin`
+--
+ALTER TABLE `est_admin`
+  ADD CONSTRAINT `est_admin_ibfk_2` FOREIGN KEY (`id_admin_projet`) REFERENCES `projets` (`id`),
+  ADD CONSTRAINT `est_admin_ibfk_1` FOREIGN KEY (`id_admin_comptes`) REFERENCES `comptes` (`id`);
 
 --
 -- Contraintes pour la table `fichiers`
