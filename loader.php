@@ -66,9 +66,36 @@ else
 	 </p>
 	 <?php
 }
+
 ?>
 	 </form>
 	 </div>
+	 
+	 <?php
+	 if (isset($_SESSION["ses_connecte"]))
+	 {
+	 	?>
+	 	<div id="gestion_projets">
+		 <form method="post" action="">
+	 	<h4>Gestion des projets :</h4>
+	 	<ul>
+	 	<?php
+	 		$id = $_SESSION["ses_id"];
+	 		$requete = mysql_query("SELECT id_comptes FROM participer WHERE id_comptes=$id LIMIT 0,5");
+	 		while ($q = mysql_fetch_array($requete))
+	 		{
+	 			?>
+	 				<li><?php echo $q['id_projets']; ?></li>
+	 			<?php
+	 		}
+	 	?>
+	 	<br /><a href="./creationprojet.php" title="Creation Projet">Nouveau projet</a>
+	 	</form>
+	 	</div>
+	 	<?php
+	 }
+	 ?>
+	 
 	 
 	 <div id="presentationagenda">
 	<?php
