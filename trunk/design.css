@@ -13,7 +13,7 @@ table
 table td
 {
 	border : 1px solid black;
-	width : 120px;
+	width : 150px;
 }	
 
 table td:hover
@@ -90,6 +90,18 @@ h1
 	padding : 5px;
 	margin-left:20px;
 	border:1px #DEDECF solid;
+}
+
+#gestion_projets
+{
+	background-color : #FDFDF7;
+	position : absolute;
+	top : 370px;
+	width : 200px;
+	padding : 5px;
+	margin-left:20px;
+	border:1px #DEDECF solid;
+
 }
 
 #presentationagenda
