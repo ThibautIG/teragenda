@@ -9,8 +9,6 @@ else
 {
 	if (isset($_POST["date"]))
 	{
-		
-		
 		$date = mysql_real_escape_string($_POST["date"]);
 		$heuredeb = mysql_real_escape_string($_POST["heuredeb"]);
 		$heurefin = mysql_real_escape_string($_POST["heurefin"]);
@@ -54,8 +52,8 @@ while ($d = mysql_fetch_array($q) )
 {
 $hd = $d["heuredeb"];
 $hf = $d["heurefin"];
-$top = substr($hd,0,2)*60+substr($hd,3,5);
-$height = substr($hf,0,2)*60+substr($hf,3,5) - $top;
+$top = substr($hd,0,2)*50+substr($hd,3,5);
+$height = substr($hf,0,2)*50+substr($hf,3,5) - $top;
 $left = $d["diff"]*100;
 	?><div style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: 100px; height: <?php echo $height; ?>px; background-color: red;"><?php echo $d["commentaire"]; ?></div>
 	<?php
