@@ -3,14 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 02 Janvier 2010 à 17:21
+-- GÃ©nÃ©rÃ© le : Sam 02 Janvier 2010 Ã  21:24
 -- Version du serveur: 5.1.36
 -- Version de PHP: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Base de données: `agenda`
+-- Base de donnÃ©es: `agenda`
 --
 
 -- --------------------------------------------------------
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `comptes` (
   `mdp` varchar(32) CHARACTER SET latin1 NOT NULL,
   `mail` varchar(100) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `comptes`
@@ -36,7 +36,8 @@ INSERT INTO `comptes` (`id`, `pseudo`, `mdp`, `mail`) VALUES
 (2, 'Guillaume', '3799809cd0179cbf0c0f01e9a941eff2', 'tibo@gmail.com'),
 (3, 'Mir', 'e469a85c29593c9d8c92923713d6b268', 'laine@machine.mir'),
 (4, 'Nypias', 'e513d1ba87c45ae7829e58783bc6f5b6', 'nypipas@gmail.com'),
-(5, 'Nopnop', 'e513d1ba87c45ae7829e58783bc6f5b6', 'machin@machin.fr');
+(5, 'Nopnop', 'e513d1ba87c45ae7829e58783bc6f5b6', 'machin@machin.fr'),
+(6, 'Robi', '3b2d1cff4e5f26161db372ab5e50600d', 'robi@test.com');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `est_admin` (
 --
 
 CREATE TABLE IF NOT EXISTS `fichiers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_comptes_envoyer` int(11) NOT NULL,
   `id_projets_comprend` int(11) NOT NULL,
   `id_rdv_contenir` int(11) NOT NULL,
@@ -73,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `fichiers` (
   KEY `id_rdv_contenir` (`id_rdv_contenir`),
   KEY `id_compte_envoyer` (`id_comptes_envoyer`),
   KEY `id_projet_comprend` (`id_projets_comprend`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `fichiers`
@@ -97,6 +98,8 @@ CREATE TABLE IF NOT EXISTS `participer` (
 -- Contenu de la table `participer`
 --
 
+INSERT INTO `participer` (`id_comptes`, `id_projets`) VALUES
+(6, 5);
 
 -- --------------------------------------------------------
 
@@ -105,18 +108,20 @@ CREATE TABLE IF NOT EXISTS `participer` (
 --
 
 CREATE TABLE IF NOT EXISTS `projets` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
   `date` date NOT NULL,
   `description` text CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `nom` (`nom`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `projets`
 --
 
+INSERT INTO `projets` (`id`, `nom`, `date`, `description`) VALUES
+(5, 'eaueei', '0000-00-00', 'auie');
 
 -- --------------------------------------------------------
 
@@ -129,18 +134,21 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   `id_compte_a_cree` int(11) NOT NULL,
   `id_projet_posseder` int(11) NOT NULL,
   `date` date NOT NULL,
-  `heure` time NOT NULL,
-  `duree` int(10) NOT NULL,
+  `heuredeb` time NOT NULL,
+  `heurefin` time NOT NULL,
   `commentaire` varchar(200) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_compte_a_cree` (`id_compte_a_cree`),
   KEY `id_projet_posseder` (`id_projet_posseder`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `rdv`
 --
 
+INSERT INTO `rdv` (`id`, `id_compte_a_cree`, `id_projet_posseder`, `date`, `heuredeb`, `heurefin`, `commentaire`) VALUES
+(1, 1, 5, '2010-01-05', '16:45:00', '18:00:00', 'de 16h45 a 18h00'),
+(8, 6, 5, '2010-01-07', '01:00:00', '02:30:00', '1h a 2h30 jeudi');
 
 -- --------------------------------------------------------
 
@@ -161,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `valider` (
 
 
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables exportÃ©es
 --
 
 --
@@ -175,9 +183,9 @@ ALTER TABLE `est_admin`
 -- Contraintes pour la table `fichiers`
 --
 ALTER TABLE `fichiers`
-  ADD CONSTRAINT `fichiers_ibfk_4` FOREIGN KEY (`id_projets_comprend`) REFERENCES `projets` (`id`),
   ADD CONSTRAINT `fichiers_ibfk_2` FOREIGN KEY (`id_rdv_contenir`) REFERENCES `rdv` (`id`),
-  ADD CONSTRAINT `fichiers_ibfk_3` FOREIGN KEY (`id_comptes_envoyer`) REFERENCES `comptes` (`id`);
+  ADD CONSTRAINT `fichiers_ibfk_3` FOREIGN KEY (`id_comptes_envoyer`) REFERENCES `comptes` (`id`),
+  ADD CONSTRAINT `fichiers_ibfk_4` FOREIGN KEY (`id_projets_comprend`) REFERENCES `projets` (`id`);
 
 --
 -- Contraintes pour la table `participer`
@@ -187,17 +195,11 @@ ALTER TABLE `participer`
   ADD CONSTRAINT `participer_ibfk_2` FOREIGN KEY (`id_projets`) REFERENCES `projets` (`id`);
 
 --
--- Contraintes pour la table `projets`
---
-ALTER TABLE `projets`
-  ADD CONSTRAINT `projets_ibfk_1` FOREIGN KEY (`id`) REFERENCES `comptes` (`id`);
-
---
 -- Contraintes pour la table `rdv`
 --
 ALTER TABLE `rdv`
-  ADD CONSTRAINT `rdv_ibfk_2` FOREIGN KEY (`id_projet_posseder`) REFERENCES `projets` (`id`),
-  ADD CONSTRAINT `rdv_ibfk_1` FOREIGN KEY (`id_compte_a_cree`) REFERENCES `comptes` (`id`);
+  ADD CONSTRAINT `rdv_ibfk_1` FOREIGN KEY (`id_compte_a_cree`) REFERENCES `comptes` (`id`),
+  ADD CONSTRAINT `rdv_ibfk_2` FOREIGN KEY (`id_projet_posseder`) REFERENCES `projets` (`id`);
 
 --
 -- Contraintes pour la table `valider`

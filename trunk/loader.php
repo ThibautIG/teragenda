@@ -81,11 +81,11 @@ else
 	 	<ul>
 	 	<?php
 	 		$id = $_SESSION["ses_id"];
-	 		$requete = mysql_query("SELECT id_comptes FROM participer WHERE id_comptes=$id LIMIT 0,5");
-	 		while ($q = mysql_fetch_array($requete))
+	 		$r = mysql_query("SELECT * FROM participer, projets WHERE id=id_projets AND id_comptes=$id");
+	 		while ($q = mysql_fetch_array($r))
 	 		{
 	 			?>
-	 				<li><?php echo $q['id_projets']; ?></li>
+	 				<li><a href="ajoutrdv.php?id=<?php echo $q['id']; ?>"><?php echo $q['nom']; ?></a></li>
 	 			<?php
 	 		}
 	 	?>
