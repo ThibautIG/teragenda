@@ -9,7 +9,7 @@ if (isset($_POST['deco']))
 $sql = mysql_connect("localhost","root","");
 mysql_select_db("agenda",$sql);
 
-if (isset($_POST["pseudo"]))
+if (isset($_POST["login"]))
 {
 	$pseudo = mysql_real_escape_string(htmlspecialchars($_POST["pseudo"]));
 	$pass = md5("teragenda".$_POST["pass"]);
@@ -46,7 +46,7 @@ if (isset($_POST["pseudo"]))
 	 <div id="cadreconnexion">
 	 <form method="post" action="">
 	 <?php
-if ($_SESSION["ses_connecte"] == true)
+if (isset($_SESSION["ses_connecte"]))
 {
 	?>
 	 	 <p> Pseudonyme : <?php echo $_SESSION["ses_pseudo"]; ?> <br />
@@ -57,7 +57,9 @@ if ($_SESSION["ses_connecte"] == true)
 else
 {
 	?>
-	 <p> Pseudonyme : <input type="text" name="pseudo" /> <br />
+	 <p>
+		<input type="hidden" name="login" value="1" />
+		Pseudonyme : <input type="text" name="pseudo" /> <br />
 	 Mot de passe : <input type="password" name="pass" /> <br />
 	 <input type="submit" value="Se connecter" /><br />
 	 <a href="./register.php" title="Enregistrement">S'enregistrer</a>
