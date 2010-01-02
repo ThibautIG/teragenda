@@ -11,21 +11,16 @@ if (isset($_POST["nom"]) & isset($_POST["description"]))
 	$date = date('d/m/Y');
 	$nom = mysql_real_escape_string(htmlspecialchars($_POST["nom"]));
 	$description = mysql_real_escape_string(htmlspecialchars($_POST["description"]));
-	$ok = mysql_query("INSERT INTO projets VALUES ('', ".$nom.", ".$date.", ".$description.")") or die("Insertion des donnees : ".mysql_error());
+	mysql_query("INSERT INTO projets(nom,date,description) VALUES('$nom', '$date', '$description')") or die("INSERT INTO projets : ".mysql_error());
 	
-	$id_projet_cree = ("SELECT id_projet FROM projets WHERE description=$description AND nom=$nom") or die("Recuperation ID_Projet : ".mysql_error());
-	
-	$id = $_SESSION['id'];
-	$ok2 = mysql_query("INSERT INTO participer VALUES ('".$id."', '".$id_projet_cree."')") or die("Insertion dans Participer : ".mysql_error());
-	
-	if ($ok && $ok2)
-	{
-		echo "Projet ajoute";
-	}
-	else 
-	{
-		echo "Erreur";
-	}
+	$q = mysql_query("SELECT id FROM projets WHERE description='$description' AND nom='$nom'") or die("SELECT FROM projets : ".mysql_error());
+	$r = mysql_fetch_array($q);
+	$id_projet_cree = $r["id"];
+	$id = $_SESSION['ses_id'];
+	mysql_query("INSERT INTO participer VALUES ('".$id."', '".$id_projet_cree."')") or die("Insertion dans Participer : ".mysql_error());
+
+	echo "Projet ajoute";
+
 }
 ?>
 
