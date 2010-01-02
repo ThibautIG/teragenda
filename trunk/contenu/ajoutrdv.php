@@ -1,5 +1,5 @@
 <?php
-if (!$_SESSION["ses_connecte"])
+if (!isset($_SESSION["ses_connecte"]))
 {
 ?>
 
