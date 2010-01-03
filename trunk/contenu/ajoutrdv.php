@@ -1,7 +1,7 @@
 ﻿<?php
 if (!isset($_SESSION["ses_connecte"]))
 {
-?>
+	?>
 
 <?php
 }
@@ -17,7 +17,7 @@ else
 		
 		$ok = mysql_query("INSERT INTO rdv(id_compte_a_cree,id_projet_posseder,date,heuredeb,heurefin,commentaire) VALUES('".$_SESSION["ses_id"]."', '".$idprojet."', '".$date."','".$heuredeb."','".$heurefin."','".$commentaire."')",$sql) or die("INSERT INTO rdv : ".mysql_error());
 	}
-?>
+	?>
 <h1>Ajouter un rendez-vous </h1>
 
 <form method="post" action="">
@@ -37,17 +37,20 @@ $jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"
 ?>
 <?php
 date_default_timezone_set('Europe/Paris');
-?>
-<div style="width: 700px; height: 500px; overflow:scroll; position: relative;">
-<?php
 $hauteur_jour = 20;
+$largeur_gauche = 70;
+$largeur_jour = 50;
 for ($i = 0; $i < 7; $i++)
 {
-	$largeur_horaire = 100;
-?><span style="position:absolute; left: <?php echo $largeur_horaire+$i*100; ?>px;"><?php 
-
-?>  <?php echo $jours[(date("N")-1+$i)%7]; ?></span><?php
+	
+	?>
+<span style="position:relative; left: <?php echo $largeur_gauche+$i*$largeur_jour; ?>px;"><?php 
+echo $jours[(date("N")-1+$i)%7]; ?></span><?php
 }
+?>
+<div style="width: 800px; height: 500px; overflow:scroll; position: absolute;">
+<?php
+
 
 $minutes = 0; $heures = 0;
 for ($i=0; $i < 96; $i++)
@@ -60,17 +63,17 @@ for ($i=0; $i < 96; $i++)
 	
 	?><span style="position:absolute; top:<?php echo $hauteur_jour+$i*15; ?>px;"><?php echo $heures . "h " . $minutes; ?></span>
 	<?php
-	$minutes = $minutes + 15;
+$minutes = $minutes + 15;
 }
 
 $q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv");
 while ($d = mysql_fetch_array($q) )
 {
-$hd = $d["heuredeb"];
-$hf = $d["heurefin"];
-$top = $hauteur_jour+substr($hd,0,2)*50+substr($hd,3,5);
-$height = substr($hf,0,2)*50+substr($hf,3,5) - $top;
-$left = $largeur_horaire + $d["diff"]*100;
+	$hd = $d["heuredeb"];
+	$hf = $d["heurefin"];
+	$top = $hauteur_jour+substr($hd,0,2)*60+substr($hd,3,5);
+	$height = substr($hf,0,2)*60+substr($hf,3,5) - $top;
+	$left = $largeur_gauche + $d["diff"]*$largeur_jour;
 	?><div style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: 100px; height: <?php echo $height; ?>px; background-color: red;"><?php echo $d["commentaire"]; ?></div>
 	<?php
 
