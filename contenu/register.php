@@ -1,6 +1,8 @@
 ﻿<?php
 $ok = false;
 $form = false;
+
+
 if (isset($_POST["pseudo"]))
 {
 	$form = true;
@@ -17,7 +19,7 @@ if (isset($_POST["pseudo"]))
 }
 if ($ok)
 {
-	echo "Compte créé.";
+	echo "Compte cr&eacute;&eacute;.";
 }
 else
 {
@@ -25,9 +27,10 @@ else
 	{
 		echo "Erreur";
 	}
+}
 ?>
-<h1>Création de compte</h1>
-Pour créer un compte, veuillez remplir les champs ci-dessous.
+<h1>Cr&eacute;ation de compte</h1>
+Pour cr&eacute;er un compte, veuillez remplir les champs ci-dessous.
 <form method="post" action="">
 	<table>
 		<tr><td><label>Pseudo</label></td><td><input type="text" name="pseudo" /></td></tr>
@@ -39,7 +42,3 @@ Pour créer un compte, veuillez remplir les champs ci-dessous.
 		<input type="submit" value="Envoyer"/><input type="reset" value="Effacer"/>
 	</p>
 </form>
-<?php
-}
-
-?>
