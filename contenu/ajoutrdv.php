@@ -7,13 +7,14 @@ if (!isset($_SESSION["ses_connecte"]))
 }
 else
 {
+	$idprojet = mysql_real_escape_string($_GET["id"]);
 	if (isset($_POST["date"]))
 	{
 		$date = mysql_real_escape_string($_POST["date"]);
 		$heuredeb = mysql_real_escape_string($_POST["heuredeb"]);
 		$heurefin = mysql_real_escape_string($_POST["heurefin"]);
 		$commentaire = mysql_real_escape_string($_POST["commentaire"]);
-		$idprojet = mysql_real_escape_string($_GET["id"]);
+		
 		
 		$ok = mysql_query("INSERT INTO rdv(id_compte_a_cree,id_projet_posseder,date,heuredeb,heurefin,commentaire) VALUES('".$_SESSION["ses_id"]."', '".$idprojet."', '".$date."','".$heuredeb."','".$heurefin."','".$commentaire."')",$sql) or die("INSERT INTO rdv : ".mysql_error());
 	}
