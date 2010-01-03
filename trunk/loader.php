@@ -39,7 +39,15 @@ if (isset($_POST["login"]))
      <div id="barreup">
      	<ul>
      		<li><a href="./index.php" title="Lien vers la page d'accueil">Accueil</a></li>
-     		<li><a href="./ajoutrdv.php" title="Ajout RDV">Ajout RDV</a></li>
+     		
+     		<?php
+     		if (isset($_SESSION["ses_connecte"]))
+     		{
+     		?>	
+     			<li><a href="./ajoutrdv.php" title="Ajout RDV">Ajout RDV</a></li>
+     		<?php
+     		}
+     		?>
     	 </ul>
      </div>
 	 
