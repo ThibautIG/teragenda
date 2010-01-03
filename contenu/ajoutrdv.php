@@ -40,17 +40,18 @@ else
 	$hauteur_jour = 20;
 	$hauteur_heure = 42;
 	$largeur_gauche = 42;
-	$largeur_jour = 120;
+	$largeur_jour = 130;
 	
 ?>
 <div style="position:relative; width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; bottom:20px;">
 <?php
 	for ($i = 0; $i < 7; $i++)
 	{
+		$prochain_jour = time() + ($i*24*60*60);
 		?>
 		<span style="position:absolute; left: <?php echo $largeur_gauche+$i*$largeur_jour; ?>px;"><?php 
 		
-		echo $jours[(date("N")-1+$i)%7]; ?></span><?php
+		echo $jours[(date("N")-1+$i)%7] . " : " . date("d-m",$prochain_jour); ?></span><?php
 	}
 ?>
 </div>
