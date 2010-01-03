@@ -105,7 +105,7 @@ else
 				if (isset($_SESSION["ses_projet"]) && $q["id"] == $_SESSION["ses_projet"])
 				{
 	 			?>
-	 				<li>[<?php echo $q['nom']; ?>]</li>
+	 				<li><a href="projet.php">[<?php echo $q['nom']; ?>]</a></li>
 	 			<?php
 				}
 				else
