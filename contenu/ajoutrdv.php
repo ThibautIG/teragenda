@@ -55,7 +55,7 @@ else
 </div>
 
 
-<div style="border:1px solid black; width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; height: 500px; overflow:scroll; position: relative;">
+<div style="border:1px solid black; width: <?php echo $largeur_gauche + $largeur_jour*7 + 5; ?>px; height: 500px; overflow:scroll; position: relative;">
 <?php
 
 
@@ -67,7 +67,10 @@ for ($i=0; $i < 48; $i++)
 		$heures = $heures + 1;
 		$minutes = 0;
 	}
-	?><span style="position:absolute; top:<?php echo $hauteur_jour+$i*30; ?>px;"><?php echo $heures . "h " . $minutes; ?></span>
+	?>
+	<div style="position:absolute; top:<?php echo $hauteur_jour + $i*30; ?>px; width:<?php echo $largeur_gauche + $largeur_jour*7; ?>px; border-top : 1px solid #D9D9D9;">
+		<span style="position:absolute;"><?php echo $heures . "h " . $minutes; ?></span>
+	</div>
 	<?php
 $minutes = $minutes + 30;
 }
