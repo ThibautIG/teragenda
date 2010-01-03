@@ -55,22 +55,21 @@ else
 </div>
 
 
-<div style="width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; height: 500px; overflow:scroll; position: relative;">
+<div style="border:1px solid black; width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; height: 500px; overflow:scroll; position: relative;">
 <?php
 
 
 $minutes = 0; $heures = 0;
-for ($i=0; $i < 96; $i++)
+for ($i=0; $i < 48; $i++)
 {
 	if ($minutes == 60)
 	{
 		$heures = $heures + 1;
 		$minutes = 0;
 	}
-	
-	?><span style="position:absolute; top:<?php echo $hauteur_jour+$i*15; ?>px;"><?php echo $heures . "h " . $minutes; ?></span>
+	?><span style="position:absolute; top:<?php echo $hauteur_jour+$i*30; ?>px;"><?php echo $heures . "h " . $minutes; ?></span>
 	<?php
-$minutes = $minutes + 15;
+$minutes = $minutes + 30;
 }
 
 $q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv");
