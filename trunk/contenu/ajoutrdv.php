@@ -29,7 +29,7 @@ else
 		
 	</table>
 	<p style="text-align: center;">
-		<input type="submit" value="Envoyer"/><input type="reset" value="Effacer"/>
+		<input type="submit" value="Envoyer"/><input type="reset" value="Effacer"/><br /><br />
 	</p>
 </form>
 <?php
@@ -40,6 +40,10 @@ else
 	$hauteur_jour = 20;
 	$largeur_gauche = 70;
 	$largeur_jour = 120;
+	
+?>
+<div style="position:relative; width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; bottom:20px;">
+<?php
 	for ($i = 0; $i < 7; $i++)
 	{
 		?>
@@ -48,6 +52,7 @@ else
 		echo $jours[(date("N")-1+$i)%7]; ?></span><?php
 	}
 ?>
+</div>
 
 
 <div style="width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; height: 500px; overflow:scroll; position: relative;">
