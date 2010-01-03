@@ -18,15 +18,16 @@ while ($d = mysql_fetch_array($q))
 include("./contenu/affichage.php");
 
 ?>
-
-<a href="ajoutrdv.php" title="Ajouter un rendez-vous">Ajouter un rendez-vous</a>
+<br />
+<a href="ajoutrdv.php" title="Ajouter un rendez-vous">Ajouter un rendez-vous</a><br />
+<a href="index.php" title="Supprimer un rendez-vous">Supprimer un rendez-vous</a>
 
 
 <h3>Liste des membres affilies au projet : </h3>
 
 <p>
 <?php
-$q = mysql_query("SELECT pseudo,mail FROM comptes ,participer WHERE id_projets=$idprojet AND id_comptes = id");
+$q = mysql_query("SELECT pseudo,mail FROM comptes,participer WHERE id_projets=$idprojet AND id_comptes = id");
 
 while ($d = mysql_fetch_array($q))
 {

@@ -94,6 +94,8 @@ else
 	 </div>
 	 
 	 <?php
+	 if (isset($_SESSION["ses_connecte"]))
+	 {
 	 if (isset($_GET["projet"]))
 	 {
 		$id = $_SESSION["ses_id"];
@@ -104,8 +106,7 @@ else
 			$_SESSION["ses_projet"] = $p;
 		}
 	 }
-	 if (isset($_SESSION["ses_connecte"]))
-	 {
+	 
 	 	?>
 	 	<div id="gestion_projets">
 		 <form method="post" action="">
