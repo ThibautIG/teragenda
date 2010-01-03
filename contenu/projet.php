@@ -26,7 +26,7 @@ include("./contenu/affichage.php");
 
 <p>
 <?php
-$q = mysql_query("SELECT pseudo,mail FROM comptes,participer WHERE id_projets=$idprojet");
+$q = mysql_query("SELECT pseudo,mail FROM comptes,participer WHERE id_projets=$idprojet AND id_projets = id");
 
 while ($d = mysql_fetch_array($q))
 {
