@@ -35,19 +35,19 @@ else
 <?php
 $jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
 ?>
-<ul>
 <?php
 date_default_timezone_set('Europe/Paris');
+?>
+<div style="width: 700px; height: 500px; overflow:scroll; position: relative;">
+<?php
+$hauteur_jour = 20;
 for ($i = 0; $i < 7; $i++)
 {
-?><li><?php 
+?><span style="position:absolute; left: <?php echo $i*100; ?>px;"><?php 
 
-?>  <?php echo $jours[(date("N")-1+$i)%7]; ?></li><?php
+?>  <?php echo $jours[(date("N")-1+$i)%7]; ?></span><?php
 }
-?>
-</ul>
-<div style="position: relative;">
-<?php
+
 $minutes = 0; $heures = 0;
 for ($i=0; $i < 96; $i++)
 {
@@ -57,7 +57,8 @@ for ($i=0; $i < 96; $i++)
 		$minutes = 0;
 	}
 	
-	echo $heures . " h " . $minutes . "<br />";
+	?><span style="position:absolute; top:<?php echo $hauteur_jour+$i*15; ?>px;"><?php echo $heures . "h " . $minutes; ?></span>
+	<?php
 	$minutes = $minutes + 15;
 }
 
@@ -66,7 +67,7 @@ while ($d = mysql_fetch_array($q) )
 {
 $hd = $d["heuredeb"];
 $hf = $d["heurefin"];
-$top = substr($hd,0,2)*50+substr($hd,3,5);
+$top = $hauteur_jour+substr($hd,0,2)*50+substr($hd,3,5);
 $height = substr($hf,0,2)*50+substr($hf,3,5) - $top;
 $left = $d["diff"]*100;
 	?><div style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: 100px; height: <?php echo $height; ?>px; background-color: red;"><?php echo $d["commentaire"]; ?></div>
