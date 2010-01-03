@@ -1,4 +1,6 @@
 <?php
+if (isset($_SESSION["ses_projet"]))
+{
 	$jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
 ?>
 <?php
@@ -58,7 +60,7 @@ for ($i=0; $i < 24; $i++)
 		<?php
 	}	
 	
-$q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv WHERE id = $idprojet");
+$q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv WHERE id_projet_posseder = ".$_SESSION["ses_projet"]);
 while ($d = mysql_fetch_array($q) )
 {
 	$hd = $d["heuredeb"];
@@ -73,4 +75,11 @@ while ($d = mysql_fetch_array($q) )
 ?>
 </div>
 
+<?php
 
+}
+else
+{
+echo "faudrait peut etre choisir un projet pour afficher la grille...";
+}
+?>
