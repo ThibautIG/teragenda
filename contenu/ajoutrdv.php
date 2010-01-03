@@ -73,7 +73,18 @@ for ($i=0; $i < 48; $i++)
 	</div>
 	<?php
 $minutes = $minutes + 30;
+
+
+	// Affichage des lignes verticales
+	for ($j=0 ; $j < 7; $j++)
+	{
+		?>
+		<div style="position:absolute; top:<?php echo $hauteur_jour + $i*30; ?>px; left:<?php echo $largeur_gauche + $largeur_jour*$j; ?>px; width:<?php echo $largeur_jour; ?>px; border-left : 1px solid #D9D9D9;"> .
+		</div>
+		<?php
+	}	
 }
+
 
 $q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv");
 while ($d = mysql_fetch_array($q) )
