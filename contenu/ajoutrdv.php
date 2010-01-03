@@ -37,16 +37,30 @@ $jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"
 ?>
 <ul>
 <?php
+date_default_timezone_set('Europe/Paris');
 for ($i = 0; $i < 7; $i++)
 {
 ?><li><?php 
-date_default_timezone_set('Europe/Paris');
-echo $jours[(date("N")-1+$i)%7]; ?></li><?php
+
+?>  <?php echo $jours[(date("N")-1+$i)%7]; ?></li><?php
 }
 ?>
 </ul>
 <div style="position: relative;">
 <?php
+$minutes = 0; $heures = 0;
+for ($i=0; $i < 96; $i++)
+{
+	if ($minutes == 60)
+	{
+		$heures = $heures + 1;
+		$minutes = 0;
+	}
+	
+	echo $heures . " h " . $minutes . "<br />";
+	$minutes = $minutes + 15;
+}
+
 $q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv");
 while ($d = mysql_fetch_array($q) )
 {
