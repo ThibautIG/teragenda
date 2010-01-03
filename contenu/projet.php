@@ -1,5 +1,9 @@
 <?php
-$idprojet = mysql_real_escape_string($_GET["id"]);
+if (isset($_SESSION["ses_connecte"]))
+{
+
+
+$idprojet = $_SESSION["ses_projet"];
 $q = mysql_query("SELECT * FROM projets WHERE id=$idprojet");
 
 while ($d = mysql_fetch_array($q))
@@ -30,8 +34,11 @@ while ($d = mysql_fetch_array($q))
 	<span>Pseudonyme : <?php echo $d['pseudo']; ?> - Email : <?php echo $d['mail']; ?> <br /></span>
 	<?php
 }
+
 ?>
 </p>
 
-
+<?php
+}
+?>
 
