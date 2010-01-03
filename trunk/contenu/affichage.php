@@ -58,7 +58,7 @@ for ($i=0; $i < 24; $i++)
 		<?php
 	}	
 	
-$q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv");
+$q = mysql_query("SELECT *, DATEDIFF(date,CURDATE()) as diff FROM rdv WHERE id = $idprojet");
 while ($d = mysql_fetch_array($q) )
 {
 	$hd = $d["heuredeb"];
