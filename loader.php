@@ -90,8 +90,9 @@ else
 	 		}
 	 	?>
 	 	</ol>
+		<p>
 	 	<br /><a href="./creationprojet.php" title="Creation Projet">Nouveau projet</a>
-	 	</form>
+	 	</p></form>
 	 	</div>
 	 	<?php
 	 }
