@@ -33,22 +33,24 @@ else
 	</p>
 </form>
 <?php
-$jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
+	$jours = Array("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
 ?>
 <?php
-date_default_timezone_set('Europe/Paris');
-$hauteur_jour = 20;
-$largeur_gauche = 70;
-$largeur_jour = 50;
-for ($i = 0; $i < 7; $i++)
-{
-	
-	?>
-<span style="position:relative; left: <?php echo $largeur_gauche+$i*$largeur_jour; ?>px;"><?php 
-echo $jours[(date("N")-1+$i)%7]; ?></span><?php
-}
+	date_default_timezone_set('Europe/Paris');
+	$hauteur_jour = 20;
+	$largeur_gauche = 70;
+	$largeur_jour = 120;
+	for ($i = 0; $i < 7; $i++)
+	{
+		?>
+		<span style="position:absolute; left: <?php echo $largeur_gauche+$i*$largeur_jour; ?>px;"><?php 
+		
+		echo $jours[(date("N")-1+$i)%7]; ?></span><?php
+	}
 ?>
-<div style="width: 800px; height: 500px; overflow:scroll; position: absolute;">
+
+
+<div style="width: <?php echo $largeur_gauche + $largeur_jour*7; ?>px; height: 500px; overflow:scroll; position: relative;">
 <?php
 
 
