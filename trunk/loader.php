@@ -80,6 +80,16 @@ else
 	 </div>
 	 
 	 <?php
+	 if (isset($_GET["projet"]))
+	 {
+		$id = $_SESSION["ses_id"];
+		$p = mysql_real_escape_string($_GET["projet"]);
+		$q = mysql_query("SELECT * FROM participer, projets WHERE id=id_projets AND id_comptes='$id' AND id_projets='$p'");
+		if (mysql_num_rows($q) == 1)
+		{
+			$_SESSION["ses_projet"] = $p;
+		}
+	 }
 	 if (isset($_SESSION["ses_connecte"]))
 	 {
 	 	?>
@@ -92,9 +102,18 @@ else
 	 		$r = mysql_query("SELECT * FROM participer, projets WHERE id=id_projets AND id_comptes=$id");
 	 		while ($q = mysql_fetch_array($r))
 	 		{
+				if (isset($_SESSION["ses_projet"]) && $q["id"] == $_SESSION["ses_projet"])
+				{
 	 			?>
-	 				<li><a href="ajoutrdv.php?id=<?php echo $q['id']; ?>"><?php echo $q['nom']; ?></a></li>
+	 				<li>[<?php echo $q['nom']; ?>]</li>
 	 			<?php
+				}
+				else
+				{
+	 			?>
+	 				<li><a href="projet.php?projet=<?php echo $q['id']; ?>"><?php echo $q['nom']; ?></a></li>
+	 			<?php
+				}
 	 		}
 	 	?>
 	 	</ol>

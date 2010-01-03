@@ -17,7 +17,7 @@
 		?>
 		<span style="position:absolute; left: <?php echo $largeur_gauche+$i*$largeur_jour; ?>px;"><?php 
 		
-		echo $jours[(date("N")-1+$i)%7] . " : " . date("d-m",$prochain_jour); ?></span><?php
+		echo $jours[(date("N")-1+$i)%7] . " : " . date("d/m",$prochain_jour); ?></span><?php
 	}
 ?>
 </div>
