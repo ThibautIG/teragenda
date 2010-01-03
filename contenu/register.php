@@ -14,7 +14,6 @@ if (isset($_POST["pseudo"]))
 	{
 		$ok = mysql_query("INSERT INTO comptes(pseudo,mdp,mail) VALUES('".$pseudo."','".$pass."','".$email."')",$sql);
 	}
-	
 }
 if ($ok)
 {
