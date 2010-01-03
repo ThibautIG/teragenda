@@ -7,7 +7,7 @@ if (!isset($_SESSION["ses_connecte"]))
 }
 else
 {
-	$idprojet = mysql_real_escape_string($_GET["id"]);
+	$idprojet = $_SESSION["ses_projet"];
 	if (isset($_POST["date"]))
 	{
 		$date = mysql_real_escape_string($_POST["date"]);
