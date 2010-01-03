@@ -43,7 +43,8 @@ date_default_timezone_set('Europe/Paris');
 $hauteur_jour = 20;
 for ($i = 0; $i < 7; $i++)
 {
-?><span style="position:absolute; left: <?php echo $i*100; ?>px;"><?php 
+	$largeur_horaire = 100;
+?><span style="position:absolute; left: <?php echo $largeur_horaire+$i*100; ?>px;"><?php 
 
 ?>  <?php echo $jours[(date("N")-1+$i)%7]; ?></span><?php
 }
@@ -69,7 +70,7 @@ $hd = $d["heuredeb"];
 $hf = $d["heurefin"];
 $top = $hauteur_jour+substr($hd,0,2)*50+substr($hd,3,5);
 $height = substr($hf,0,2)*50+substr($hf,3,5) - $top;
-$left = $d["diff"]*100;
+$left = $largeur_horaire + $d["diff"]*100;
 	?><div style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: 100px; height: <?php echo $height; ?>px; background-color: red;"><?php echo $d["commentaire"]; ?></div>
 	<?php
 
