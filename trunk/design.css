@@ -21,6 +21,11 @@ table td:hover
 	background-color: #FFCCCC;
 }
 
+.cliquable
+{
+	cursor: pointer;
+}
+
 ul
 {
         padding: 0px;
