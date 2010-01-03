@@ -23,6 +23,29 @@ if (isset($_POST["login"]))
 	}
 }
 
+if (isset($_POST["creationprojet"]))
+{
+	if (isset($_POST["nom"]) & isset($_POST["description"]))
+	{
+		date_default_timezone_set('Europe/Paris');
+			
+		$nom = mysql_real_escape_string(htmlspecialchars($_POST["nom"]));
+		$description = mysql_real_escape_string(htmlspecialchars($_POST["description"]));
+		mysql_query("INSERT INTO projets(nom,date,description) VALUES('$nom', CURDATE(), '$description')") or die("INSERT INTO projets : ".mysql_error());
+		
+		$q = mysql_query("SELECT id FROM projets WHERE description='$description' AND nom='$nom'") or die("SELECT FROM projets : ".mysql_error());
+		$r = mysql_fetch_array($q);
+		$id_projet_cree = $r["id"];
+		$id = $_SESSION['ses_id'];
+		mysql_query("INSERT INTO participer VALUES ('".$id."', '".$id_projet_cree."')") or die("Insertion dans Participer : ".mysql_error());
+		$_SESSION["ses_projet"] = $id_projet_cree;
+
+	}
+}
+
+
+
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
    <head>
