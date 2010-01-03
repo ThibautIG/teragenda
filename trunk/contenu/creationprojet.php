@@ -8,10 +8,9 @@ if (isset($_POST["nom"]) & isset($_POST["description"]))
 {
 	date_default_timezone_set('Europe/Paris');
 		
-	$date = date('d/m/Y');
 	$nom = mysql_real_escape_string(htmlspecialchars($_POST["nom"]));
 	$description = mysql_real_escape_string(htmlspecialchars($_POST["description"]));
-	mysql_query("INSERT INTO projets(nom,date,description) VALUES('$nom', '$date', '$description')") or die("INSERT INTO projets : ".mysql_error());
+	mysql_query("INSERT INTO projets(nom,date,description) VALUES('$nom', CURDATE(), '$description')") or die("INSERT INTO projets : ".mysql_error());
 	
 	$q = mysql_query("SELECT id FROM projets WHERE description='$description' AND nom='$nom'") or die("SELECT FROM projets : ".mysql_error());
 	$r = mysql_fetch_array($q);
