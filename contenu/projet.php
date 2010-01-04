@@ -15,7 +15,7 @@ while ($d = mysql_fetch_array($q))
 	<?php
 }
 
-include("./contenu/affichage.php");
+include("affichage.php");
 
 ?>
 <br />
