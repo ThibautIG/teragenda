@@ -35,7 +35,7 @@ else
 </form>
 
 <?php
-include("./contenu/affichage.php");
+include("affichage.php");
 }
 
 ?>

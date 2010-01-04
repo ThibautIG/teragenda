@@ -54,28 +54,11 @@ h1
 	margin-bottom:20px;
 }
 
-			#banniere img
-			{
-				border-style:none;
-			}
-
-
-#rdv1
+#banniere img
 {
-	background-color : blue;
-	position: absolute;
-	bottom: 50px;
-	width: 120px;
+	border-style:none;
 }
 
-#rdv2
-{
-	background-color : green;
-	position: absolute;
-	bottom: 50px;
-	width: 120px;
-	left: 60px;
-}
 
 #barreup
 {

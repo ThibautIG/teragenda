@@ -1,20 +1,14 @@
 <?php
-session_start();
-if (isset($_POST['deco']))
-{
-	session_unset();
-	session_destroy();
-	session_start();
-}
-$sql = mysql_connect("localhost","root","");
-mysql_select_db("agenda",$sql);
+require("req.php"); // BDD, Session, etc
 
 if (isset($_POST["login"]))
 {
+
 	$pseudo = mysql_real_escape_string(htmlspecialchars($_POST["pseudo"]));
 	$pass = md5("teragenda".$_POST["pass"]);
 	$q = mysql_query("SELECT * FROM comptes WHERE pseudo = '".$pseudo."' AND mdp = '".$pass."'");
-	if (mysql_num_rows($q) == 1)
+	echo "login".mysql_num_rows($q); 
+	if (mysql_num_rows($q) >= 1)
 	{
 		$r = mysql_fetch_array($q);
 		$_SESSION["ses_connecte"] = true;
