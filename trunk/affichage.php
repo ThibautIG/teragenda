@@ -93,7 +93,7 @@ for ($i=0; $i < 24; $i++)
 	
 	
 	
-	// marche pas ça , à voir
+	// marche pas ï¿½a , ï¿½ voir
 	?>
 	<script type="text/javascript">
 		document.getElementById("grille").scrollX.value = 500;
