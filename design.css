@@ -93,6 +93,17 @@ h1
 
 }
 
+#gestion_membres
+{
+        background-color : #FDFDF7;
+	position : absolute;
+	top : 600px;
+	width : 200px;
+	padding : 5px;
+	margin-left:20px;
+	border:1px #DEDECF solid;
+}
+
 #presentationagenda
 {
 	position : absolute;

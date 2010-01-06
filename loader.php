@@ -17,6 +17,20 @@ if (isset($_POST["login"]))
 	}
 }
 
+if (isset($_POST["ajoutmembre"]))
+{
+	$pseudo = mysql_real_escape_string(htmlspecialchars($_POST["ajoutmembre"]));
+	$requete = mysql_query("SELECT id FROM comptes WHERE pseudo='".$pseudo."'") or die("SELECT id FROM comptes : " . mysql_error());
+	$projet = $_SESSION["ses_projet"];
+	if (mysql_num_rows($requete) >= 1)
+	{
+		$r =  mysql_fetch_array($requete);
+		 $id_compte_ajoute = $r["id"];
+		$q = mysql_query("INSERT INTO participer(id_comptes,id_projets) VALUES('$id_compte_ajoute','$projet')") or die("INSERT INTO participer" . mysql_error());
+	}
+	
+}
+
 if (isset($_POST["creationprojet"]))
 {
 	if (isset($_POST["nom"]) & isset($_POST["description"]))
@@ -132,32 +146,61 @@ else
 	 	</div>
 	 	<?php
 	 }
+	 
+
+	if (isset($_SESSION["ses_connecte"]))
+	{
+		if (isset($_SESSION["ses_projet"]))
+		{
+			$id = $_SESSION["ses_id"];
+			$id_projet = $_SESSION["ses_projet"];
+			?>
+			<div id="gestion_membres">
+			
+			<h4>Membres affilies au projet 
+			<?php 
+			$nom_projet = mysql_query("SELECT nom FROM projets WHERE id=$id_projet") or die("Nom Projet : " . mysql_error());
+			while ($j = mysql_fetch_array($nom_projet))
+			{
+				echo $j["nom"];
+			}
+			?>
+			
+			</h4>
+			
+			<ol>
+			<?php
+				$id = $_SESSION["ses_id"];
+				$r = mysql_query("SELECT pseudo FROM comptes C,participer P WHERE C.id = P.id_comptes AND P.id_projets=$id_projet") or die("Requete membres : " . mysql_error());
+				while ($q = mysql_fetch_array($r))
+				{
+					echo $q["pseudo"]; echo "<br />";
+				}
+			?>
+			</ol>		
+			
+			<form method="post" action="">
+			<h5>Ajouter un membre</h5>
+			<p>
+				<input type="text" name="ajoutmembre" />
+				<input type="submit" />
+			</p>
+			</form>
+			</div>
+			<?php
+		}
+	}
 	 ?>
 	 
-	 
+
+
 	 <div id="presentationagenda">
 	<?php
-include("contenu/".$page.".php");
-?>
+		include("contenu/".$page.".php");
+	?>
 	</div>
 	
 
-    	 <div id="footer">
-    	      <div id="footer_texte">
-	      	   <a href="aide.php" title="Aide Site">Aide</a>
-		   <span>&nbsp;-&nbsp;</span>
-		   <a href="faq.php" title="Faq">FAQ</a>
-     	      	       	      	   
-     	      	  
-
-
-	<span>&nbsp;-&nbsp;</span>
-
- 	<a href="plansite.php" title="Plan du site">Plan Site</a>
-
-
-
-     	      </div>
-	 </div>	
+    	
   </body>
 </html>
