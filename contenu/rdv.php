@@ -81,7 +81,27 @@ while ($d = mysql_fetch_array($q) )
 
 }
 ?>
-<a href="ajoutfichier.php">Ajouter un fichier</a><?php
+<a href="ajoutfichier.php">Ajouter un fichier</a><br />
+
+<h4>Liste des membres : </h4>
+
+<?php
+	
+	$id = $_SESSION["ses_id"];
+	$projet = $_SESSION["ses_projets"];
+	$r_pseudo = mysql_query("SELECT pseudo, id, mail FROM comptes C,participer P WHERE C.id = P.id_comptes AND P.id_projets=$id_projet") or die("Requete membres : " . mysql_error());
+	
+	while ($d = mysql_fetch_array($r_pseudo))
+	{
+		$q = mysql_query("SELECT id_comptes FROM valider WHERE $d['id']=id_comptes");
+		
+		while ($e = mysql_fetch_array($q))
+		{
+			echo $d['pseudo']; ?> : <?php echo $d['mail']; ?> : <?php
+			if ()
+		}
+	}
+
 
 }
 else
