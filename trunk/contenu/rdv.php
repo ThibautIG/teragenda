@@ -1,13 +1,27 @@
-<?php
-$_SESSION["ses_rdv"] = mysql_real_escape_string($_GET["rdv"]);
-	if (isset($_POST["date"]))
+﻿<?php
+if (isset($_GET["rdv"]))
+{
+	$_SESSION["ses_rdv"] = mysql_real_escape_string($_GET["rdv"]);
+}
+if (isset($_POST["date"]))
+{
+	$date = mysql_real_escape_string($_POST["date"]);
+	$heuredeb = mysql_real_escape_string($_POST["heuredeb"]);
+	$heurefin = mysql_real_escape_string($_POST["heurefin"]);
+	$commentaire = mysql_real_escape_string($_POST["commentaire"]);
+	mysql_query("UPDATE rdv SET date='".$date."', heuredeb='".$heuredeb."', heurefin='".$heurefin."', commentaire='".$commentaire."' WHERE id='".$_SESSION["ses_rdv"]."'",$sql) or die("UPDATE rdv : ".mysql_error());
+}
+if (isset($_GET["valider"]))
+{
+	if ($_GET["valider"] == 0)
 	{
-		$date = mysql_real_escape_string($_POST["date"]);
-		$heuredeb = mysql_real_escape_string($_POST["heuredeb"]);
-		$heurefin = mysql_real_escape_string($_POST["heurefin"]);
-		$commentaire = mysql_real_escape_string($_POST["commentaire"]);
-		mysql_query("UPDATE rdv SET date='".$date."', heuredeb='".$heuredeb."', heurefin='".$heurefin."', commentaire='".$commentaire."' WHERE id='".$_SESSION["ses_rdv"]."'",$sql) or die("UPDATE rdv : ".mysql_error());
+		mysql_query("DELETE FROM valider WHERE id_comptes='".$_SESSION["ses_id"]."' AND id_rdv='".$_SESSION["ses_rdv"]."'",$sql) or die("REMOVE valider : ".mysql_error());
 	}
+	if ($_GET["valider"] == 1)
+	{
+		mysql_query("INSERT INTO valider(id_comptes,id_rdv) VALUES('".$_SESSION["ses_id"]."','".$_SESSION["ses_rdv"]."')",$sql) or die("INSERT valider : ".mysql_error());
+	}
+}
 $q = mysql_query("SELECT * FROM rdv WHERE id='".$_SESSION["ses_rdv"]."'");
 $d = mysql_fetch_array($q);
 if ($d["id_projet_posseder"] == $_SESSION["ses_projet"])
@@ -39,8 +53,18 @@ if ($d["id_projet_posseder"] == $_SESSION["ses_projet"])
 		echo $d["heurefin"]."<br />";
 		echo $d["commentaire"]."<br />";
 	}
-?>
 
+$q = mysql_query("SELECT * FROM valider WHERE id_comptes='".$_SESSION["ses_id"]."' AND id_rdv='".$_SESSION["ses_rdv"]."'") or die("select participer : ".mysql_error());
+if (mysql_num_rows($q) > 0)
+{
+?>Vous avez validé. <a href="rdv.php?valider=0">Ne plus valider</a><?php
+}
+else
+{
+?>Vous n'avez pas validé. <a href="rdv.php?valider=1">Valider</a><?php
+}
+
+?>
 <p>Liste des fichiers :</p>
 <?php
 $q = mysql_query("SELECT *, C.id as compte_id, F.id as fichier_id FROM fichiers F, comptes C WHERE F.id_comptes_envoyer = C.id AND F.id_rdv_contenir = ".$_SESSION["ses_rdv"]) or die("select fichiers : ".mysql_error());
@@ -62,7 +86,7 @@ while ($d = mysql_fetch_array($q) )
 }
 else
 {
-	echo "Ce RDV n'est pas dans le projet selectionn�.";
+	echo "Ce RDV n'est pas dans le projet selectionné.";
 }
 
 
