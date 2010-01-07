@@ -59,11 +59,11 @@ if ($d["id_projet_posseder"] == $_SESSION["ses_projet"])
 $q = mysql_query("SELECT * FROM valider WHERE id_comptes='".$_SESSION["ses_id"]."' AND id_rdv='".$_SESSION["ses_rdv"]."'") or die("select participer : ".mysql_error());
 if (mysql_num_rows($q) > 0)
 {
-?>Vous avez validé. <a href="rdv.php?valider=0">Ne plus valider</a><?php
+?>Vous avez valid&eacute;. <a href="rdv.php?valider=0">Ne plus valider</a><?php
 }
 else
 {
-?>Vous n'avez pas validé. <a href="rdv.php?valider=1">Valider</a><?php
+?>Vous n'avez pas valid&eacute;. <a href="rdv.php?valider=1">Valider</a><?php
 }
 
 // LISTE des comptes
@@ -71,7 +71,7 @@ else
     $id = $_SESSION["ses_id"];
 	$projet = $_SESSION["ses_projet"];
 	$r_pseudo = mysql_query("SELECT pseudo, id, mail FROM comptes C,participer P WHERE C.id = P.id_comptes AND P.id_projets=$id_projet") or die("Requete membres : " . mysql_error());
-	?><p>Liste membres :</p><?php
+	?><h4>Liste membres :</h4><?php
 	while ($d = mysql_fetch_array($r_pseudo))
 	{
 		echo "<br />";
@@ -79,16 +79,16 @@ else
 		echo $d['pseudo'];
 		if (mysql_num_rows($q) > 0)
 		{
-			echo " a validé";
+			echo " a valid&eacute;";
 		}
 		else
 		{
-			echo " n'a pas validé";
+			echo " n'a pas valid&eacute;";
 		}
 	}
 
 ?>
-<p>Liste des fichiers :</p>
+<h4>Liste des fichiers :</h4>
 <?php
 $q = mysql_query("SELECT *, C.id as compte_id, F.id as fichier_id FROM fichiers F, comptes C WHERE F.id_comptes_envoyer = C.id AND F.id_rdv_contenir = ".$_SESSION["ses_rdv"]) or die("select fichiers : ".mysql_error());
 while ($d = mysql_fetch_array($q) )
