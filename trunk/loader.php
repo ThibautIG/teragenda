@@ -1,6 +1,28 @@
 <?php
 require("req.php"); // BDD, Session, etc
 
+if (isset($_SESSION["ses_connecte"]))
+{
+	if (isset($_GET['idsp']))
+	{
+		$id_projet_a_supprimer = $_GET['idsp'];
+		$r = mysql_query("SELECT id_comptes FROM est_admin WHERE id_projets=$id_projet_a_supprimer");
+		while ($d = mysql_fetch_array($r))
+		{
+			if ($d["id_comptes"] == $_SESSION["ses_id"])
+			{
+				mysql_query("DELETE FROM est_admin WHERE id_projets=$id_projet_a_supprimer") or die("DELETE admin : ".mysql_error());
+				mysql_query("DELETE FROM participer WHERE id_projets=$id_projet_a_supprimer") or die("DELETE participer : ".mysql_error());
+				mysql_query("DELETE FROM projets WHERE id=$id_projet_a_supprimer") or die("DELETE projets : ".mysql_error());
+				mysql_query("DELETE FROM rdv WHERE id_projet_posseder=$id_projet_a_supprimer") or die("DELETE rdv : ".mysql_error());
+				mysql_query("DELETE FROM fichiers WHERE id_projets_comprend=$id_projet_a_supprimer") or die("DELETE fichiers : ".mysql_error());
+			}
+		}
+	}
+}
+
+	
+
 if (isset($_POST["login"]))
 {
 

@@ -28,7 +28,7 @@ include("affichage.php");
 		if ($d["id_comptes"] == $_SESSION["ses_id"])
 		{
 			?> 
-			<a href="" title="Supprimer le projet">Supprimer le projet courant</a><br /> 
+			<a href="index.php?idsp=<?php echo $id_projet; ?>" title="Supprimer le projet">Supprimer le projet courant</a><br /> 
 			<?php
 		}
 	}
