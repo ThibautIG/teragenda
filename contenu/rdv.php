@@ -43,9 +43,17 @@ if ($d["id_projet_posseder"] == $_SESSION["ses_projet"])
 
 <p>Liste des fichiers :</p>
 <?php
-$q = mysql_query("SELECT * FROM fichiers F, comptes C WHERE F.id_comptes_envoyer = C.id F.id_rdv_contenir = ".$_SESSION["ses_rdv"]) or die("select fichiers : ".mysql_error());
+$q = mysql_query("SELECT *, C.id as compte_id, F.id as fichier_id FROM fichiers F, comptes C WHERE F.id_comptes_envoyer = C.id AND F.id_rdv_contenir = ".$_SESSION["ses_rdv"]) or die("select fichiers : ".mysql_error());
 while ($d = mysql_fetch_array($q) )
 {
+?><a href="fichiers/<?php echo $d["nom"]; ?>"><?php echo $d["description"]; ?></a><?php if ($d["compte_id"] == $_SESSION["ses_id"])
+{
+?>
+ - <a href="rdv.php?deletefichier=<?php echo $d["fichier_id"]; ?>">Supprimer le fichier</a>
+<?php
+}
+?><br /><?php
+
 
 }
 ?>
