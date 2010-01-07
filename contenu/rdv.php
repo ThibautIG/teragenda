@@ -64,6 +64,27 @@ else
 ?>Vous n'avez pas validé. <a href="rdv.php?valider=1">Valider</a><?php
 }
 
+// LISTE des comptes
+
+    $id = $_SESSION["ses_id"];
+	$projet = $_SESSION["ses_projet"];
+	$r_pseudo = mysql_query("SELECT pseudo, id, mail FROM comptes C,participer P WHERE C.id = P.id_comptes AND P.id_projets=$id_projet") or die("Requete membres : " . mysql_error());
+	?><p>Liste membres :</p><?php
+	while ($d = mysql_fetch_array($r_pseudo))
+	{
+		echo "<br />";
+		$q = mysql_query("SELECT * FROM valider WHERE id_rdv='".$_SESSION['ses_rdv']."' AND id_comptes='".$d['id']."'");
+		echo $d['pseudo'];
+		if (mysql_num_rows($q) > 0)
+		{
+			echo " a validé";
+		}
+		else
+		{
+			echo " n'a pas validé";
+		}
+	}
+
 ?>
 <p>Liste des fichiers :</p>
 <?php
@@ -83,24 +104,10 @@ while ($d = mysql_fetch_array($q) )
 ?>
 <a href="ajoutfichier.php">Ajouter un fichier</a><br />
 
-<h4>Liste des membres : </h4>
+
 
 <?php
 	
-	$id = $_SESSION["ses_id"];
-	$projet = $_SESSION["ses_projets"];
-	$r_pseudo = mysql_query("SELECT pseudo, id, mail FROM comptes C,participer P WHERE C.id = P.id_comptes AND P.id_projets=$id_projet") or die("Requete membres : " . mysql_error());
-	
-	while ($d = mysql_fetch_array($r_pseudo))
-	{
-		$q = mysql_query("SELECT id_comptes FROM valider WHERE $d['id']=id_comptes");
-		
-		while ($e = mysql_fetch_array($q))
-		{
-			echo $d['pseudo']; ?> : <?php echo $d['mail']; ?> : <?php
-			if ()
-		}
-	}
 
 
 }
