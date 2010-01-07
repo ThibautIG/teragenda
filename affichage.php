@@ -117,7 +117,7 @@ while ($d = mysql_fetch_array($q) )
 		
 		$left = $largeur_gauche + $d["diff"]*$largeur_jour;
 		
-		?><div class="cliquable" onclick="alert('test');" style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: <?php echo $largeur_jour; ?>px; height: <?php echo $height; ?>px; padding: 4px; border: 1px solid black; background-color: #CCCCFF;"><?php echo $d["commentaire"]; ?></div>
+		?><div class="cliquable" onclick="document.location.href='rdv.php?rdv=<?php echo $d["id"]; ?>';" style="position: absolute; top: <?php echo $top; ?>px; left: <?php echo $left; ?>px; width: <?php echo $largeur_jour; ?>px; height: <?php echo $height; ?>px; padding: 4px; border: 1px solid black; background-color: #CCCCFF;"><?php echo $d["commentaire"]; ?></div>
 		<?php
 	}
 }
