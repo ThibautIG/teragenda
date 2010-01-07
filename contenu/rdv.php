@@ -11,6 +11,7 @@ if (isset($_POST["date"]))
 	$commentaire = mysql_real_escape_string($_POST["commentaire"]);
 	mysql_query("UPDATE rdv SET date='".$date."', heuredeb='".$heuredeb."', heurefin='".$heurefin."', commentaire='".$commentaire."' WHERE id='".$_SESSION["ses_rdv"]."'",$sql) or die("UPDATE rdv : ".mysql_error());
 }
+
 if (isset($_GET["valider"]))
 {
 	if ($_GET["valider"] == 0)
@@ -42,6 +43,7 @@ if ($d["id_projet_posseder"] == $_SESSION["ses_projet"])
 		</table>
 		<p style="text-align: center;">
 			<input type="submit" value="Modifier"/><input type="reset" value="Effacer"/><br />
+			<a href="projet.php?suprrdv=1">Supprimer ce RDV</a>
 		</p>
 	</form>
 	<?php
