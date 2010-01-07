@@ -3,7 +3,7 @@ if (isset($_SESSION["ses_projet"]))
 {
 	if (isset($_POST["description"])) 
 	{
-		if ($_FILES['replay']['error']) {
+		if ($_FILES['fichier']['error']) {
 			switch ($_FILES['replay']['error']){
 				case 1: // UPLOAD_ERR_INI_SIZE
 				echo"Replay trop gros. (Server)";
