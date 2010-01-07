@@ -11,9 +11,13 @@ if (isset($_SESSION["ses_connecte"]))
 		{
 			if ($d["id_comptes"] == $_SESSION["ses_id"])
 			{
+				
 				mysql_query("DELETE FROM est_admin WHERE id_projets=$id_projet_a_supprimer") or die("DELETE admin : ".mysql_error());
+				mysql_query("DELETE FROM valider V, rdv R WHERE V.id_rdv=R.id AND R.id_projet_posseder=$id_projet_a_supprimer") or die("DELETE valider : ".mysql_error());
 				mysql_query("DELETE FROM participer WHERE id_projets=$id_projet_a_supprimer") or die("DELETE participer : ".mysql_error());
+				
 				mysql_query("DELETE FROM projets WHERE id=$id_projet_a_supprimer") or die("DELETE projets : ".mysql_error());
+				
 				mysql_query("DELETE FROM rdv WHERE id_projet_posseder=$id_projet_a_supprimer") or die("DELETE rdv : ".mysql_error());
 				mysql_query("DELETE FROM fichiers WHERE id_projets_comprend=$id_projet_a_supprimer") or die("DELETE fichiers : ".mysql_error());
 			}
@@ -188,7 +192,7 @@ else
 			?>
 			<div id="gestion_membres">
 			
-			<h4>Membres affilies au projet 
+			<h4>Membres affili&eacute;s au projet 
 			<?php 
 			$nom_projet = mysql_query("SELECT nom FROM projets WHERE id=$id_projet") or die("Nom Projet : " . mysql_error());
 			while ($j = mysql_fetch_array($nom_projet))
