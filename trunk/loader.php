@@ -21,8 +21,6 @@ if (isset($_SESSION["ses_connecte"]))
 	}
 }
 
-	
-
 if (isset($_POST["login"]))
 {
 
@@ -63,8 +61,6 @@ if (isset($_POST["creationprojet"]))
 		$description = mysql_real_escape_string(htmlspecialchars($_POST["description"]));
 		mysql_query("INSERT INTO projets(nom,date,description) VALUES('$nom', CURDATE(), '$description')") or die("INSERT INTO projets : ".mysql_error());
 		
-		
-		
 		$q = mysql_query("SELECT id FROM projets WHERE description='$description' AND nom='$nom'") or die("SELECT FROM projets : ".mysql_error());
 		$r = mysql_fetch_array($q);
 		$id_projet_cree = $r["id"];
@@ -75,7 +71,18 @@ if (isset($_POST["creationprojet"]))
 	}
 }
 
-
+	// Ajout de l'administrateur
+	if (isset($_POST["creationprojet"]))
+	{
+		if (isset($_POST["nom"]) & isset($_POST["description"]))
+		{
+			$id_admin = $_SESSION['ses_id'];
+			$id_projet_cree = $_SESSION['ses_projet'];
+		
+			mysql_query("INSERT INTO est_admin(id_comptes, id_projets) VALUES ('$id_admin', '$id_projet_cree')") or die("INSERT INTO admin : ".mysql_error());
+		}
+	}
+	
 
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -223,24 +230,6 @@ else
 		include("contenu/".$page.".php");
 	?>
 	</div>
-	
-	
-	
-	<?php
-	// Ajout de l'administrateur
-	if (isset($_POST["creationprojet"]))
-	{
-		if (isset($_POST["nom"]) & isset($_POST["description"]))
-		{
-			$id_admin = $_SESSION['ses_id'];
-			$id_projet_cree = $_SESSION['ses_projet'];
-		
-			mysql_query("INSERT INTO est_admin(id_comptes, id_projets) VALUES ('$id_admin', '$id_projet_cree')") or die("INSERT INTO admin : ".mysql_error());
-		}
-	}
-	
-	?>
-
     	
   </body>
 </html>
