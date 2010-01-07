@@ -3,8 +3,6 @@ if (isset($_SESSION["ses_connecte"]))
 {
 ?>
 
-
-
 <h3>Creation d'un projet</h3>
 <form method="post" action="projet.php">
 <input type="hidden" name="creationprojet" value="1" />

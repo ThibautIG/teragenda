@@ -2,7 +2,6 @@
 if (isset($_SESSION["ses_connecte"]))
 {
 
-
 $idprojet = $_SESSION["ses_projet"];
 $q = mysql_query("SELECT * FROM projets WHERE id=$idprojet");
 
@@ -20,8 +19,20 @@ include("affichage.php");
 ?>
 <br />
 <a href="ajoutrdv.php" title="Ajouter un rendez-vous">Ajouter un rendez-vous</a><br />
-<a href="index.php" title="Supprimer un rendez-vous">Supprimer un rendez-vous</a>
 
+<?php
+	$id_projet = $_SESSION["ses_projet"];
+	$r = mysql_query("SELECT id_comptes FROM est_admin WHERE id_projets=$id_projet");
+	while ($d = mysql_fetch_array($r))
+	{
+		if ($d["id_comptes"] == $_SESSION["ses_id"])
+		{
+			?> 
+			<a href="" title="Supprimer le projet">Supprimer le projet courant</a><br /> 
+			<?php
+		}
+	}
+?>
 
 <h3>Liste des membres affilies au projet : </h3>
 
