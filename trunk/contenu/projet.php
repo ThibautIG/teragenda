@@ -1,7 +1,22 @@
 <?php
 if (isset($_SESSION["ses_connecte"]))
 {
-
+	if (isset($_GET["suprrdv"]))
+	{
+		if ($_GET["suprrdv"] == 1)
+		{
+			$q = mysql_query("SELECT * FROM rdv WHERE id='".$_SESSION["ses_rdv"]."'");
+			$d = mysql_fetch_array($q);
+			if ($d["id_compte_a_cree"] == $_SESSION["ses_id"])
+			{
+				$rdv = $_SESSION["ses_rdv"];
+				mysql_query("DELETE FROM valider WHERE id_rdv=$rdv") or die("DELETE valider : ".mysql_error());
+				mysql_query("DELETE FROM fichiers WHERE id_rdv_contenir=$rdv") or die("DELETE fichiers : ".mysql_error());
+				mysql_query("DELETE FROM rdv WHERE id=$rdv") or die("DELETE rdv : ".mysql_error());
+				$_SESSION["ses_rdv"] = null;
+			}
+		}
+	}
 $idprojet = $_SESSION["ses_projet"];
 $q = mysql_query("SELECT * FROM projets WHERE id=$idprojet");
 
